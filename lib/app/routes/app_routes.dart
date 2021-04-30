@@ -7,6 +7,8 @@ abstract class Routes {
   static const REGISTRATION_PAGE = _Paths.REGISTRATION_PAGE;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
   static const USER_PROFILE_PAGE = _Paths.USER_PROFILE_PAGE;
+  static const ALERT_CATEGORY_PAGE = _Paths.ALERT_CATEGORY_PAGE;
+  static const POST_SUCCESS_PAGE = _Paths.POST_SUCCESS_PAGE;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const REGISTRATION_PAGE = '/registration-page';
   static const LOGIN_PAGE = '/login-page';
   static const USER_PROFILE_PAGE = '/user-profile-page';
+  static const ALERT_CATEGORY_PAGE = '/alert-category-page';
+  static const POST_SUCCESS_PAGE = '/post-success-page';
 }

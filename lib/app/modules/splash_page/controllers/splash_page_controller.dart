@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:hawkeye/app/api_client.dart';
 import 'package:hawkeye/app/routes/app_pages.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class SplashPageController extends GetxController {
   //TODO: Implement SplashPageController
@@ -41,8 +43,8 @@ class SplashPageController extends GetxController {
 
   void splashScreenDelay() {
     Future.delayed(Duration(seconds: 3), () {
-      Get.toNamed(Routes.REGISTRATION_PAGE);
-      // checkIfOldUser();
+      // Get.toNamed(Routes.REGISTRATION_PAGE);
+      checkIfOldUser();
       // initUniLinks();
       // OnboardingScreen());
     });
@@ -54,32 +56,34 @@ class SplashPageController extends GetxController {
   // //   oldUser.write('oldUser', value);
   // // } */
 
-  // void checkIfOldUser() async {
-  //   var _oldUser = _accountService.getLoggedInAccountToken();
-  //   // Map<String, dynamic> decodedToken = JwtDecoder.decode(_oldUser);
-  //   // decodedToken.forEach((key, value) {
-  //   //   print('$key : $value');
-  //   // });
-  //   if (_oldUser != null) {
-  //     Map<String, dynamic> decodedToken = JwtDecoder.decode(_oldUser);
-  //     decodedToken.forEach((key, value) {
-  //       print('$key : $value');
-  //     });
-  //     DateTime expirationDate = JwtDecoder.getExpirationDate(_oldUser);
-  //     bool isTokenExpired = JwtDecoder.isExpired(_oldUser);
-  //     print(isTokenExpired);
-  //     print('============== + $expirationDate');
-  //     if (JwtDecoder.isExpired(_oldUser)) {
-  //       Get.off(() => LoginScreen());
-  //     } else {
-  //       // check if old user token has expired.
-  //       // User has logged in
+  void checkIfOldUser() async {
+    final myApiClient = ApiClient();
 
-  //       Get.offAndToNamed(Routes.HOME);
-  //     }
-  //   } else if (_oldUser == null) {
-  //     /// New user
-  //     Get.off(() => OnboardingScreen());
-  //   }
-  // }
+    // Map<String, dynamic> decodedToken = JwtDecoder.decode(_oldUser);
+    // decodedToken.forEach((key, value) {
+    //   print('$key : $value');
+    // });
+    String _oldUser = myApiClient.box.read('token');
+    if (_oldUser != null) {
+      Map<String, dynamic> decodedToken = JwtDecoder.decode(_oldUser);
+      decodedToken.forEach((key, value) {
+        print('$key : $value');
+      });
+      DateTime expirationDate = JwtDecoder.getExpirationDate(_oldUser);
+      bool isTokenExpired = JwtDecoder.isExpired(_oldUser);
+      print(isTokenExpired);
+      print('============== + $expirationDate');
+      if (JwtDecoder.isExpired(_oldUser)) {
+        Get.offNamed(Routes.LOGIN_PAGE);
+      } else {
+        // check if old user token has expired.
+        // User has logged in
+
+        Get.offAndToNamed(Routes.HOME_PAGE);
+      }
+    } else {
+      /// New user
+      Get.offNamed(Routes.REGISTRATION_PAGE);
+    }
+  }
 }

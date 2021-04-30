@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 
+import 'package:hawkeye/app/modules/alert_category_page/bindings/alert_category_page_binding.dart';
+import 'package:hawkeye/app/modules/alert_category_page/views/alert_category_page_view.dart';
 import 'package:hawkeye/app/modules/home_page/bindings/home_page_binding.dart';
 import 'package:hawkeye/app/modules/home_page/views/home_page_view.dart';
 import 'package:hawkeye/app/modules/login_page/bindings/login_page_binding.dart';
 import 'package:hawkeye/app/modules/login_page/views/login_page_view.dart';
+import 'package:hawkeye/app/modules/post_success_page/bindings/post_success_page_binding.dart';
+import 'package:hawkeye/app/modules/post_success_page/views/post_success_page_view.dart';
 import 'package:hawkeye/app/modules/registration_page/bindings/registration_page_binding.dart';
 import 'package:hawkeye/app/modules/registration_page/views/registration_page_view.dart';
 import 'package:hawkeye/app/modules/splash_page/bindings/splash_page_binding.dart';
@@ -41,6 +45,16 @@ class AppPages {
       name: _Paths.USER_PROFILE_PAGE,
       page: () => UserProfilePageView(),
       binding: UserProfilePageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ALERT_CATEGORY_PAGE,
+      page: () => AlertCategoryPageView(),
+      binding: AlertCategoryPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.POST_SUCCESS_PAGE,
+      page: () => PostSuccessPageView(),
+      binding: PostSuccessPageBinding(),
     ),
   ];
 }
