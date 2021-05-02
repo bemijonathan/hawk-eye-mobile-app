@@ -293,80 +293,89 @@ class HomeView extends GetView {
                           ),
                         ),
                         SizedBox(height: 54.h),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 24.w),
-                          height: 100.h,
-                          width: Get.width,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey[300],
-                                    blurRadius: 5.5,
-                                    spreadRadius: 3,
-                                    offset: Offset(0, 4))
-                              ]),
-                          child: Stack(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(bottom: 8),
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                    'Area Reports',
-                                    style: TextStyle(
-                                      fontSize: 40,
-                                      letterSpacing: 4,
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.grey[100],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                right: -10.w,
-                                child: Container(
-                                  height: 25.w,
-                                  width: 40.w,
-                                  decoration: BoxDecoration(
-                                      color: Colors.amber[50],
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
+                        GestureDetector(
+                          onTap: () {
+                            Get.snackbar('coming soon...',
+                                'Reports in your area will be available soon',
+                                backgroundColor: Color(0xff4F25FF),
+                                colorText: Color(0xffFFFFFF));
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 24.w),
+                            height: 100.h,
+                            width: Get.width,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey[300],
+                                      blurRadius: 5.5,
+                                      spreadRadius: 3,
+                                      offset: Offset(0, 4))
+                                ]),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(bottom: 8),
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
                                     child: Text(
-                                      '1',
+                                      'Area Reports',
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 40,
                                         letterSpacing: 4,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xff281380),
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.grey[100],
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Positioned(
-                                bottom: 10.w,
-                                left: 10.w,
-                                child: Container(
-                                  // padding: EdgeInsets.all(16),
-                                  // height: 25.w,
-                                  // width: 40.w,
-                                  // decoration: BoxDecoration(
-                                  //     color: Colors.amber[50],
-                                  //     borderRadius: BorderRadius.circular(15)),
-                                  child: Text(
-                                    'Reports in your area',
-                                    style: TextStyle(
-                                      fontSize: 24.sp,
-                                      // letterSpacing: 4,
-                                      fontWeight: FontWeight.w700,
-                                      // color: Color(0xff281380),
+                                Positioned(
+                                  right: -10.w,
+                                  child: Container(
+                                    height: 25.w,
+                                    width: 40.w,
+                                    decoration: BoxDecoration(
+                                        color: Colors.amber[50],
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Center(
+                                      child: Text(
+                                        '1',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          letterSpacing: 4,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff281380),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
+                                Positioned(
+                                  bottom: 10.w,
+                                  left: 10.w,
+                                  child: Container(
+                                    // padding: EdgeInsets.all(16),
+                                    // height: 25.w,
+                                    // width: 40.w,
+                                    // decoration: BoxDecoration(
+                                    //     color: Colors.amber[50],
+                                    //     borderRadius: BorderRadius.circular(15)),
+                                    child: Text(
+                                      'Reports in your area',
+                                      style: TextStyle(
+                                        fontSize: 24.sp,
+                                        // letterSpacing: 4,
+                                        fontWeight: FontWeight.w700,
+                                        // color: Color(0xff281380),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(height: 24.h),

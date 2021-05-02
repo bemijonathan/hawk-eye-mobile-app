@@ -404,7 +404,10 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
                             ),
                         child: TextButton.icon(
                             onPressed: () async {
-                              // Get.bottomSheet(getContactBottomSheet);
+                              Get.snackbar('Go pro - coming soon',
+                                  'more contacts will be added on the pro plan',
+                                  backgroundColor: Color(0xff4F25FF),
+                                  colorText: Color(0xffFFFFFF));
                             },
                             icon: Icon(
                               Icons.add,
