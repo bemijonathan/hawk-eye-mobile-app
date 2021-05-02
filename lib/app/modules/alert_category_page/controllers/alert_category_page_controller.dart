@@ -11,7 +11,6 @@ class AlertCategoryPageController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
-    getAlertCategories();
     super.onInit();
   }
 
@@ -50,9 +49,11 @@ class AlertCategoryPageController extends GetxController {
 
     if (result.status == true) {
       getCategoryLoader.value = false;
+      await myApiClient.getStatistics();
       Get.offNamed(Routes.POST_SUCCESS_PAGE, arguments: result.message);
     } else {
       getCategoryLoader.value = false;
+      Get.back();
       getSnackbar(result.message);
     }
   }

@@ -6,6 +6,10 @@ import 'package:hawkeye/app/modules/home_page/bindings/home_page_binding.dart';
 import 'package:hawkeye/app/modules/home_page/views/home_page_view.dart';
 import 'package:hawkeye/app/modules/login_page/bindings/login_page_binding.dart';
 import 'package:hawkeye/app/modules/login_page/views/login_page_view.dart';
+import 'package:hawkeye/app/modules/myreports_page/bindings/myreports_page_binding.dart';
+import 'package:hawkeye/app/modules/myreports_page/views/myreports_page_view.dart';
+import 'package:hawkeye/app/modules/police_numbers_page/bindings/police_numbers_page_binding.dart';
+import 'package:hawkeye/app/modules/police_numbers_page/views/police_numbers_page_view.dart';
 import 'package:hawkeye/app/modules/post_success_page/bindings/post_success_page_binding.dart';
 import 'package:hawkeye/app/modules/post_success_page/views/post_success_page_view.dart';
 import 'package:hawkeye/app/modules/registration_page/bindings/registration_page_binding.dart';
@@ -55,6 +59,16 @@ class AppPages {
       name: _Paths.POST_SUCCESS_PAGE,
       page: () => PostSuccessPageView(),
       binding: PostSuccessPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.POLICE_NUMBERS_PAGE,
+      page: () => PoliceNumbersPageView(),
+      binding: PoliceNumbersPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.MYREPORTS_PAGE,
+      page: () => MyreportsPageView(),
+      binding: MyreportsPageBinding(),
     ),
   ];
 }

@@ -78,6 +78,8 @@ class SplashPageController extends GetxController {
       } else {
         // check if old user token has expired.
         // User has logged in
+        await myApiClient.getUserProfile();
+        await myApiClient.getStatistics();
 
         Get.offAndToNamed(Routes.HOME_PAGE);
       }

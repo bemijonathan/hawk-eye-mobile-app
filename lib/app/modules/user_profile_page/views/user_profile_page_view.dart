@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hawkeye/app/api_client.dart';
+import 'package:hawkeye/app/modules/home_page/controllers/home_page_controller.dart';
+import 'package:hawkeye/app/modules/police_numbers_page/views/police_numbers_page_view.dart';
 import 'package:hawkeye/app/modules/user_profile_page/controllers/user_profile_page_controller.dart';
+import 'package:hawkeye/app/modules/user_profile_page/models/user_profile_model.dart';
+import 'package:hawkeye/app/routes/app_pages.dart';
 import 'package:hawkeye/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserProfilePageView extends GetView<UserProfilePageController> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  final myApiClient = ApiClient();
+  final _homeController = Get.put(HomePageController());
 
   @override
   Widget build(BuildContext context) {
+    UserProfile userProfile = myApiClient.box.read('user');
+
     return Scaffold(
         key: _drawerKey,
         endDrawer: ClipRRect(
@@ -25,48 +35,66 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
                 ),
                 // mainAxisSize: MainAxisSize.min,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(
-                          color: Colors.red[300],
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
+                    GestureDetector(
+                      onTap: () {
+                        _homeController.myApiClient.box.erase();
+                        Get.offAllNamed(Routes.LOGIN_PAGE);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Colors.red[300],
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        'call 112',
-                        style: TextStyle(
-                          color: nimbusBlue.withOpacity(.8),
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
+                    GestureDetector(
+                      onTap: () async {
+                        await launch('tel://112');
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          'call 112',
+                          style: TextStyle(
+                            color: nimbusBlue.withOpacity(.8),
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        'NGO\'s',
-                        style: TextStyle(
-                          color: nimbusBlue.withOpacity(.8),
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        'Police',
-                        style: TextStyle(
-                          color: nimbusBlue.withOpacity(.8),
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
+                    // GestureDetector(
+                    //   onTap: () {},
+                    //   child: Container(
+                    //     padding: EdgeInsets.all(8),
+                    //     child: Text(
+                    //       'Profile',
+                    //       style: TextStyle(
+                    //         color: nimbusBlue.withOpacity(.8),
+                    //         fontSize: 18.sp,
+                    //         fontWeight: FontWeight.w700,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    GestureDetector(
+                      onTap: () => Get.to(() => PoliceNumbersPageView()),
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          'Police',
+                          style: TextStyle(
+                            color: nimbusBlue.withOpacity(.8),
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
@@ -149,7 +177,7 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
                                   child: Align(
                                     alignment: Alignment.bottomLeft,
                                     child: Text(
-                                      'Christina',
+                                      userProfile.data.firstName,
                                       style: TextStyle(
                                         color: Color(0xFF262626),
                                         fontSize: 21.sp,
@@ -236,7 +264,9 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Jonathan Atiene',
+                              userProfile.data.lastName +
+                                  ' ' +
+                                  userProfile.data.firstName,
                               style: TextStyle(
                                 fontSize: 24.sp,
                                 // letterSpacing: 4,
@@ -245,7 +275,16 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
                               ),
                             ),
                             Text(
-                              'atienejonathan@gmail.com',
+                              userProfile.data.email,
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                // letterSpacing: 4,
+                                fontWeight: FontWeight.w500,
+                                // color: Color(0xff281380),
+                              ),
+                            ),
+                            Text(
+                              userProfile.data.phoneNumber,
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 // letterSpacing: 4,
@@ -265,7 +304,7 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 24.w),
-                height: 280.h,
+                height: 300.h,
                 width: Get.width,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -329,57 +368,26 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Container(
-                              width: Get.width,
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 2,
-                                ),
-                                leading: CircleAvatar(
-                                  radius: 15,
-                                  child: Text('yk'),
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                ),
-                                title: Text('Yereka Ueh-kabari' ?? ''),
-                                //This can be further expanded to showing contacts detail
-                                // onPressed().
+                            for (var item in userProfile.data.contacts)
+                              Container(
+                                width: Get.width,
+                                child: ListTile(
+                                    // contentPadding: const EdgeInsets.symmetric(
+                                    //   // vertical: 2,
+                                    // ),
+                                    leading: CircleAvatar(
+                                      radius: 15,
+                                      child: Text(item.name[0]),
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                    ),
+                                    title: Text(item.name),
+                                    subtitle: Text(item.phone)
+
+                                    //This can be further expanded to showing contacts detail
+                                    // onPressed().
+                                    ),
                               ),
-                            ),
-                            Container(
-                              width: Get.width,
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 2,
-                                ),
-                                leading: CircleAvatar(
-                                  radius: 15,
-                                  child: Text('yk'),
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                ),
-                                title: Text('Yereka Ueh-kabari' ?? ''),
-                                //This can be further expanded to showing contacts detail
-                                // onPressed().
-                              ),
-                            ),
-                            Container(
-                              width: Get.width,
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0,
-                                ),
-                                leading: CircleAvatar(
-                                  child: Text('yk'),
-                                  radius: 15,
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                ),
-                                title: Text('Yereka Ueh-kabari' ?? ''),
-                                //This can be further expanded to showing contacts detail
-                                // onPressed().
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -415,164 +423,6 @@ class UserProfilePageView extends GetView<UserProfilePageController> {
                 ),
               ),
               SizedBox(height: 24.h),
-              //   Container(
-              //     padding: EdgeInsets.symmetric(horizontal: 20),
-              //     child: Center(
-              //         child: Row(
-              //       // mainAxisSize: MainAxisSize.min,
-              //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //       children: [
-              //         Container(
-              //           height: 180.h,
-              //           width: 150.w,
-              //           decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(8),
-              //             boxShadow: [
-              //               BoxShadow(
-              //                 color: Colors.grey[300],
-              //                 blurRadius: 5.5,
-              //                 spreadRadius: 5,
-              //                 offset: Offset(0, 4),
-              //               ),
-              //             ],
-              //             gradient: LinearGradient(
-              //               colors: [
-              //                 Color(0xff281380).withOpacity(.8),
-              //                 Color(0xff4F25FF).withOpacity(.8)
-              //               ],
-              //             ),
-              //           ),
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: Stack(children: [
-              //               Positioned(
-              //                 top: 25.h,
-              //                 child: Container(
-              //                   child: Text(
-              //                     'Report',
-              //                     style: TextStyle(
-              //                       fontSize: 30,
-              //                       letterSpacing: 4,
-              //                       fontWeight: FontWeight.w900,
-              //                       color: Colors.black12,
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ),
-              //               Column(
-              //                 crossAxisAlignment: CrossAxisAlignment.start,
-              //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //                 children: [
-              //                   Icon(
-              //                     Icons.info_outline,
-              //                     color: Colors.white,
-              //                   ),
-              //                   Column(
-              //                     crossAxisAlignment: CrossAxisAlignment.start,
-              //                     children: [
-              //                       Text(
-              //                         'Report',
-              //                         style: TextStyle(
-              //                           color: Color(0xFFFFFFFF),
-              //                           fontSize: 21.sp,
-              //                           fontWeight: FontWeight.w700,
-              //                         ),
-              //                         textAlign: TextAlign.start,
-              //                       ),
-              //                       Text(
-              //                         'make your emergency reports here',
-              //                         style: TextStyle(
-              //                           color: Color(0xFFFFFFFF),
-              //                           fontSize: 14.sp,
-              //                           fontWeight: FontWeight.w700,
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 ],
-              //               ),
-              //             ]),
-              //           ),
-              //         ),
-              //         SizedBox(
-              //           height: 24.h,
-              //         ),
-              //         Container(
-              //           height: 180.h,
-              //           width: 150.w,
-              //           decoration: BoxDecoration(
-              //               borderRadius: BorderRadius.circular(8),
-              //               // gradient: LinearGradient(
-              //               //   colors: [
-              //               //     Color(0xff4F25FF).withOpacity(.8),
-              //               //     Color(0xff281380).withOpacity(.8)
-              //               //   ],
-              //               // ),
-              //               color: Colors.white,
-              //               boxShadow: [
-              //                 BoxShadow(
-              //                     color: Colors.grey[300],
-              //                     blurRadius: 5.5,
-              //                     spreadRadius: 5,
-              //                     offset: Offset(0, 4))
-              //               ]),
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: Stack(
-              //               children: [
-              //                 Positioned(
-              //                   top: 25.h,
-              //                   child: Container(
-              //                     child: Text(
-              //                       'Alerts',
-              //                       style: TextStyle(
-              //                         fontSize: 30,
-              //                         letterSpacing: 4,
-              //                         fontWeight: FontWeight.w900,
-              //                         color: Colors.grey[200],
-              //                       ),
-              //                     ),
-              //                   ),
-              //                 ),
-              //                 Column(
-              //                   crossAxisAlignment: CrossAxisAlignment.start,
-              //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //                   children: [
-              //                     Icon(
-              //                       Icons.add_alert_rounded,
-              //                       color: Color(0xff4F25FF),
-              //                     ),
-              //                     Column(
-              //                       crossAxisAlignment: CrossAxisAlignment.start,
-              //                       children: [
-              //                         Text(
-              //                           'Alerts',
-              //                           style: TextStyle(
-              //                             color: Color(0xff4F25FF),
-              //                             fontSize: 21.sp,
-              //                             fontWeight: FontWeight.w700,
-              //                           ),
-              //                         ),
-              //                         Text(
-              //                           'get your alerts from locations near you',
-              //                           style: TextStyle(
-              //                             color: Color(0xff4F25FF),
-              //                             fontSize: 14.sp,
-              //                             fontWeight: FontWeight.w700,
-              //                           ),
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         )
-              //       ],
-              //     )),
-              //   ),
-              // ],
             ]),
           ),
         ));

@@ -69,6 +69,8 @@ class LoginPageController extends GetxController {
         loginLoader.value = true;
         final result = await myApiClient.loginUser(body);
         if (result.status == true) {
+          await myApiClient.getUserProfile();
+          await myApiClient.getStatistics();
           Get.offAllNamed(Routes.HOME_PAGE);
         } else {
           loginLoader.value = false;

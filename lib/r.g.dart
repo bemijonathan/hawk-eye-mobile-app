@@ -104,6 +104,11 @@ class _R_Image_AssetResource {
   // ignore: non_constant_identifier_names
   final hAWK_EYE_logo =
       const AssetResource("assets/images/HAWK-EYE_logo.png", packageName: null);
+
+  /// asset: assets/images/app_icon.png
+  // ignore: non_constant_identifier_names
+  final app_icon =
+      const AssetResource("assets/images/app_icon.png", packageName: null);
 }
 
 // ignore: camel_case_types
@@ -133,6 +138,12 @@ class _R_Image {
   // ignore: non_constant_identifier_names
   AssetImage hAWK_EYE_logo() {
     return AssetImage(asset.hAWK_EYE_logo.keyName);
+  }
+
+  /// asset: assets/images/app_icon.png
+  // ignore: non_constant_identifier_names
+  AssetImage app_icon() {
+    return AssetImage(asset.app_icon.keyName);
   }
 }
 

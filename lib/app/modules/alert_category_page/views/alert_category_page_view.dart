@@ -3,17 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hawkeye/app/general_widgets/spinkit.dart';
 import 'package:hawkeye/colors.dart';
-import 'package:hawkeye/utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import '../controllers/alert_category_page_controller.dart';
 
 class AlertCategoryPageView extends StatelessWidget {
-  getback() {
-    Get.back();
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AlertCategoryPageController>(
@@ -84,9 +79,9 @@ class AlertCategoryPageView extends StatelessWidget {
                                                           FontWeight.bold),
                                                 )),
                                             TextButton(
-                                                onPressed: () {
+                                                onPressed: () async {
                                                   Get.back();
-                                                  _.postAlertNotifs(
+                                                  await _.postAlertNotifs(
                                                       notifID: _
                                                           .alertCategories[
                                                               index]

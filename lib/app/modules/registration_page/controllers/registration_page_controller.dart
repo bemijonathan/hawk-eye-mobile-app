@@ -142,6 +142,9 @@ class RegistrationPageController extends GetxController {
 
       final result = await myApiClient.addGroupContact(body);
       if (result.status) {
+        await myApiClient.getUserProfile();
+        await myApiClient.getStatistics();
+
         Get.offNamed(Routes.HOME_PAGE);
       } else {
         contactsLoader.value = false;

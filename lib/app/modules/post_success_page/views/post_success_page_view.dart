@@ -15,7 +15,7 @@ class PostSuccessPageView extends StatefulWidget {
 class _PostSuccessPageViewState extends State<PostSuccessPageView> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       Get.until((route) => route.settings.name == Routes.HOME_PAGE);
     });
     super.initState();

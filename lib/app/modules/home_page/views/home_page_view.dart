@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:hawkeye/app/modules/home_page/views/home_view.dart';
+import 'package:hawkeye/app/modules/myreports_page/views/myreports_page_view.dart';
 import 'package:hawkeye/app/modules/user_profile_page/views/user_profile_page_view.dart';
 
 import '../controllers/home_page_controller.dart';
@@ -24,8 +25,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   static List<Widget> _widgetOptions = <Widget>[
     HomeView(),
-    Text('Search Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    MyreportsPageView(),
     UserProfilePageView()
   ];
 
@@ -120,12 +120,12 @@ class _HomePageViewState extends State<HomePageView> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.search,
+                Icons.receipt_outlined,
                 color: Colors.grey,
                 size: 24,
               ),
               activeIcon: Icon(
-                Icons.search,
+                Icons.receipt_outlined,
                 color: Color(0xff281380),
                 size: 24,
               ),

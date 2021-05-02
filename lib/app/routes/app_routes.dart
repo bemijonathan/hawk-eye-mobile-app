@@ -9,6 +9,8 @@ abstract class Routes {
   static const USER_PROFILE_PAGE = _Paths.USER_PROFILE_PAGE;
   static const ALERT_CATEGORY_PAGE = _Paths.ALERT_CATEGORY_PAGE;
   static const POST_SUCCESS_PAGE = _Paths.POST_SUCCESS_PAGE;
+  static const POLICE_NUMBERS_PAGE = _Paths.POLICE_NUMBERS_PAGE;
+  static const MYREPORTS_PAGE = _Paths.MYREPORTS_PAGE;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const USER_PROFILE_PAGE = '/user-profile-page';
   static const ALERT_CATEGORY_PAGE = '/alert-category-page';
   static const POST_SUCCESS_PAGE = '/post-success-page';
+  static const POLICE_NUMBERS_PAGE = '/police-numbers-page';
+  static const MYREPORTS_PAGE = '/myreports-page';
 }
