@@ -39,7 +39,8 @@ class MyreportsPageView extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        _homeController.myApiClient.box.erase();
+                        _homeController.myApiClient.box.remove('stats');
+                        _homeController.myApiClient.box.remove('user');
                         Get.offAllNamed(Routes.LOGIN_PAGE);
                       },
                       child: Container(

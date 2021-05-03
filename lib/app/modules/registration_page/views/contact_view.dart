@@ -301,13 +301,18 @@ class _ContactViewState extends State<ContactView> {
                               };
                               _contacts.add(subBody);
                             }
+                            for (var i = 0; i < _contacts.length; i++) {
+                              print(_contacts[i]);
+                            }
+                            _registrationPageController
+                                .addGroupContacts(_contacts);
+                            // Get.toNamed(Routes.HOME_PAGE);
+                          } else {
+                            Get.snackbar('An error occured',
+                                'please ensure to add at least one emergency contact',
+                                backgroundColor: Color(0xff4F25FF),
+                                colorText: Color(0xffFFFFFF));
                           }
-                          for (var i = 0; i < _contacts.length; i++) {
-                            print(_contacts[i]);
-                          }
-                          _registrationPageController
-                              .addGroupContacts(_contacts);
-                          // Get.toNamed(Routes.HOME_PAGE);
                         }),
                   ),
                   SizedBox(

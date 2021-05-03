@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hawkeye/app/routes/app_pages.dart';
 import 'package:hawkeye/r.g.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   await GetStorage.init();
@@ -14,6 +15,10 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return ScreenUtilInit(
       designSize: Size(375, 812),
       builder: () => GetMaterialApp(
